@@ -19,11 +19,17 @@ var campgroundRoutes    = require("./routes/campgrounds"),
     commentRoutes       = require("./routes/comments"),
     indexRoutes          = require("./routes/index")
 
-//run mongo database locally
-//mongoose.connect("mongodb://localhost/yelp_camp", {useNewUrlParser: true, useFindAndModify: false});
+// assign mongoose promise library and connect to database
+mongoose.Promise = global.Promise;
+
+const databaseUri = process.env.MONGODB_URI || 'mongodb://localhost/yelp_camp';
+
+mongoose.connect(databaseUri, { useNewUrlParser: true, useFindAndModify: false })
+      .then(() => console.log(`Database connected`))
+      .catch(err => console.log(`Database connection error: ${err.message}`));
 
 //run mongo database via Mongo Atlus
-mongoose.connect("mongodb+srv://CiaranAdmin:kGmAChKDGQRKAyIf@cluster0-eayph.azure.mongodb.net/yelp_camp?retryWrites=true&w=majority", {useNewUrlParser: true, useFindAndModify: false});
+//mongoose.connect("mongodb+srv://CiaranAdmin:kGmAChKDGQRKAyIf@cluster0-eayph.azure.mongodb.net/yelp_camp?retryWrites=true&w=majority", {useNewUrlParser: true, useFindAndModify: false});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -65,6 +71,6 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
 //need this so you actually see the fucking site
-app.listen(3000, function(){
-    console.log("The YelpCamp server has started")
-});
+app.listen(process.env.PORT, process.env.IP, function(){
+    console.log("The YelpCamp Server Has Started!");
+ });
