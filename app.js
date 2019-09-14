@@ -22,14 +22,9 @@ var campgroundRoutes    = require("./routes/campgrounds"),
 // assign mongoose promise library and connect to database
 mongoose.Promise = global.Promise;
 
-const databaseUri = process.env.MONGODB_URI || 'mongodb://localhost/yelp_camp';
-
-mongoose.connect(databaseUri, { useNewUrlParser: true, useFindAndModify: false })
+mongoose.connect("mongodb+srv://CiaranAdmin:kGmAChKDGQRKAyIf@cluster0-eayph.azure.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true, useFindAndModify: false })
       .then(() => console.log(`Database connected`))
       .catch(err => console.log(`Database connection error: ${err.message}`));
-
-//run mongo database via Mongo Atlus
-//mongoose.connect("mongodb+srv://CiaranAdmin:kGmAChKDGQRKAyIf@cluster0-eayph.azure.mongodb.net/yelp_camp?retryWrites=true&w=majority", {useNewUrlParser: true, useFindAndModify: false});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -37,6 +32,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
 
+//load test data for starting testing
 //seedDB();
 
 //moment - for dates and time etc
