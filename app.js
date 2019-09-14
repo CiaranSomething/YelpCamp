@@ -18,8 +18,13 @@ var express     = require("express"),
 var campgroundRoutes    = require("./routes/campgrounds"),
     commentRoutes       = require("./routes/comments"),
     indexRoutes          = require("./routes/index")
-    
+
+//run mongo database locally
+//mongoose.connect("mongodb://localhost/yelp_camp", {useNewUrlParser: true, useFindAndModify: false});
+
+//run mongo database via Mongo Atlus
 mongoose.connect("mongodb+srv://CiaranAdmin:kGmAChKDGQRKAyIf@cluster0-eayph.azure.mongodb.net/yelp_camp?retryWrites=true&w=majority", {useNewUrlParser: true, useFindAndModify: false});
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
